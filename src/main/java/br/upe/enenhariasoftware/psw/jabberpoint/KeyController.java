@@ -14,32 +14,50 @@ import java.awt.event.KeyEvent;
 
 public class KeyController extends KeyAdapter {
 
-	private Presentation presentation;
+    private Presentation presentation;
 
-	public KeyController(Presentation p) {
-		presentation = p;
-	}
+    public KeyController(Presentation presentation) {
+        this.presentation = presentation;
+    }
 
-	public void keyPressed(KeyEvent keyEvent) {
-		switch (keyEvent.getKeyCode()) {
-		case KeyEvent.VK_PAGE_DOWN:
-		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_ENTER:
-		case '+':
-			presentation.nextSlide();
-			break;
-		case KeyEvent.VK_PAGE_UP:
-		case KeyEvent.VK_UP:
-		case '-':
-			presentation.prevSlide();
-			break;
-		case 'q':
-		case 'Q':
-			System.exit(0);
-			break; // fix?
-		default:
-			break;
-		}
-	}
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        int keyCode = keyEvent.getKeyCode();
 
+        switch (keyCode) {
+            case KeyEvent.VK_PAGE_DOWN:
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_ENTER:
+            case '+':
+                moveNextSlide();
+                break;
+            case KeyEvent.VK_PAGE_UP:
+            case KeyEvent.VK_UP:
+            case '-':
+                movePreviousSlide();
+                break;
+            case KeyEvent.VK_Q:
+            case KeyEvent.VK_ESCAPE:
+                exitApplication();
+                break;
+            default:
+                break;
+        }
+    }
+    private void moveNextSlide() {
+        presentation.nextSlide();
+    }
+
+    private void movePreviousSlide() {
+        presentation.prevSlide();
+    }
+
+    private void exitApplication() {
+        System.exit(0);
+    }
 }
+
+
+
+
+
